@@ -1,0 +1,22 @@
+ <form action="/upload" method="POST" enctype="multipart/form-data">
+          <div class="file-field input-field">
+            <div class="btn grey">
+              <span>File</span>
+              <input name="mobileImage" type="file" />
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" />
+            </div>
+          </div>
+          <button type="submit" class="btn">
+            Submit
+          </button>
+        </form>
+        <br /><br />
+        <img default-src='none' src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img" width=100px height=80px text=center>
+      </div>
+
+ <%= typeof files != 'undefined' %> ?
+        <% for(let i = 0; i<files.length; i++) { %>
+          <img default-src='none' src='<%=files[i]%>' class="responsive-img" width="100px" height="80px" text-align="center" />
+       <% } %>

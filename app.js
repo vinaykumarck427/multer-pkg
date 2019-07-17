@@ -1,8 +1,8 @@
-const express = require('express')
-const multer = require('multer')
-const ejs = require('ejs')
-const path = require('path')
-const _ = require('lodash')
+const express = require("express");
+const multer = require("multer");
+const ejs = require("ejs");
+const path = require("path");
+const _ = require("lodash");
 
 // set storage engine
 const storage = multer.diskStorage({
@@ -20,10 +20,10 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     checkFileType(file, cb);
   }
-}).single("mobileImage");
+}).array("mobileImages", 2);
 
 // check file type
-function checkFileType(file,cb){
+function checkFileType(file, cb) {
   // allowed ext
   const filetypes = /jpeg|jpg|png|gif/;
   // check ext
@@ -31,43 +31,44 @@ function checkFileType(file,cb){
   //check mime
   const mimetype = filetypes.test(file.mimetype);
 
-  if(mimetype && extname){
-    return cb(null,true);
-  }else{
-    cb('Error: Images Only!');
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("Error: Images Only!");
   }
 }
 // init app
-const app = express()
-const port = 3005
+const app = express();
+const port = 3005;
 
 // EJS
-app.set('view engine', 'ejs')
+app.set("view engine", "ejs");
 
 // public folder
-app.use(express.static('./public'))
+app.use(express.static("./public"));
 
-app.get('/', (req,res) => res.render('index'))
+app.get("/", (req, res) => res.render("index"));
 
-app.post('/upload', (req,res) => {
+app.post("/uploads", (req, res) => {
   upload(req, res, function(error) {
-    if(error) {
-      res.render('index', {
+    if (error) {
+      res.render("index", {
         msg: error
       });
-     } else {
-        if(req.file == undefined) {
-          res.render('index', {
-            msg: 'Error: No File Selected'
-          });
-       } else {
-          res.render('index', {
-            msg: 'File Uploaded',
-            file: `uploads/${req.file.filename}`
-          });
-        }
+    } else {
+      if (req.files == undefined) {
+        res.render("index", {
+          msg: "Error: No Files Selected"
+        });
+      } else {
+        console.log(req.files)
+        res.render("index", {
+          msg: "File Uploaded",
+          files: req.files.map(file => `uploads/${file.filename}`)
+        });
       }
-    })
-  })
+    }
+  });
+});
 
-app.listen(port, () => console.log(`server started on port ${port}`))
+app.listen(port, () => console.log(`server started on port ${port}`));
