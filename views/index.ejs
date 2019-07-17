@@ -33,7 +33,10 @@
           </button>
         </form>
         <br /><br /><br />
-        <%= typeof files != 'undefined' ? files : '' %>
+        <%= typeof files != 'undefined' %> 
+        <% for(let i = 0; i < files.length; i++){ %>
+          <span><img src='<%=files[i]%>' class="responsive-img" width="100px" height="80px" text-align="center" /></span>
+        <%}%>
       </div>
   </body>
 </html>

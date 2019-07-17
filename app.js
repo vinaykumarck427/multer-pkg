@@ -64,7 +64,7 @@ app.post("/uploads", (req, res) => {
         console.log(req.files)
         res.render("index", {
           msg: "File Uploaded",
-          files: req.files.map(file => file.path)
+          files: req.files.map(file => `uploads/${file.filename}`)
         });
       }
     }
