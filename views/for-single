@@ -15,3 +15,8 @@
         <br /><br />
         <img default-src='none' src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img" width=100px height=80px text=center>
       </div>
+
+ <%= typeof files != 'undefined' %> ?
+        <% for(let i = 0; i<files.length; i++) { %>
+          <img default-src='none' src='<%=files[i]%>' class="responsive-img" width="100px" height="80px" text-align="center" />
+       <% } %>

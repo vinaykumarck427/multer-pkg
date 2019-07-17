@@ -33,8 +33,7 @@
           </button>
         </form>
         <br /><br /><br />
-        <% let files = files%>
-        <img default-src='none' src="<%= typeof files != 'undefined' ? files : '' %>" class="responsive-img" width=100px height=80px text=center>
+        <%= typeof files != 'undefined' ? files : '' %>
       </div>
   </body>
 </html>

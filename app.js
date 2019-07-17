@@ -20,7 +20,7 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     checkFileType(file, cb);
   }
-}).array("mobileImages", 4);
+}).array("mobileImages", 2);
 
 // check file type
 function checkFileType(file, cb) {
@@ -64,7 +64,7 @@ app.post("/uploads", (req, res) => {
         console.log(req.files)
         res.render("index", {
           msg: "File Uploaded",
-          files: req.files
+          files: req.files.map(file => file.path)
         });
       }
     }
